@@ -1,5 +1,6 @@
 let score = 0;
 let current = 0;
+let answered = false;
 
 const questions = [
   {
@@ -7,30 +8,41 @@ const questions = [
     answer: "C"
   },
   {
-    text: "O segurado facultativo não exerce atividade remunerada.",
+    text: "O segurado facultativo exerce atividade remunerada.",
     answer: "E"
   },
   {
     text: "A Constituição Federal é a norma suprema do Brasil.",
     answer: "C"
-  },
-  {
-    text: "A interpretação de texto depende apenas do sentido literal das palavras.",
-    answer: "E"
   }
 ];
 
 function loadQuestion() {
-  document.getElementById("questionBox").innerText =
-    questions[current].text;
+  const q = questions[current];
+
+  document.getElementById("questionBox").innerHTML = `
+    <p>${q.text}</p>
+  `;
+
+  answered = false;
 }
 
 function answer(userAnswer) {
-  if (userAnswer === questions[current].answer) {
+  if (answered) return;
+
+  const q = questions[current];
+  answered = true;
+
+  if (userAnswer === q.answer) {
     score++;
+    alert("✔ Correto!");
+  } else {
+    alert("❌ Errado!");
   }
 
   document.getElementById("score").innerText = score;
+
+  setTimeout(nextQuestion, 800);
 }
 
 function nextQuestion() {
