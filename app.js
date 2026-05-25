@@ -4,16 +4,22 @@ let canAnswer = true;
 
 const questions = [
   {
+    subject: "Portugues",
+    text: "A interpretação de texto depende apenas do sentido literal.",
+    answer: "E",
+    explanation: "Interpretação depende de contexto e inferência, não só sentido literal."
+  },
+  {
+    subject: "Previdenciario",
     text: "A filiação ao RGPS ocorre automaticamente com atividade remunerada.",
-    answer: "C"
+    answer: "C",
+    explanation: "Sim, a filiação ocorre automaticamente quando há atividade remunerada."
   },
   {
-    text: "O segurado facultativo exerce atividade remunerada.",
-    answer: "E"
-  },
-  {
-    text: "A Constituição Federal é a norma suprema do Brasil.",
-    answer: "C"
+    subject: "Informatica",
+    text: "O Windows é um sistema operacional.",
+    answer: "C",
+    explanation: "O Windows é um sistema operacional da Microsoft."
   }
 ];
 
@@ -21,6 +27,7 @@ function loadQuestion() {
   const q = questions[current];
 
   document.getElementById("questionBox").innerHTML = `
+    <h4>${q.subject}</h4>
     <p>${q.text}</p>
   `;
 
@@ -28,29 +35,38 @@ function loadQuestion() {
 }
 
 function answer(userAnswer) {
-  if (!canAnswer) return; // 🔒 bloqueia spam de clique
-
+  if (!canAnswer) return;
   canAnswer = false;
 
   const q = questions[current];
 
+  let msg = "";
+
   if (userAnswer === q.answer) {
     score++;
-    alert("✔ Correto!");
+    msg = "✔ Correto!\n\n" + q.explanation;
   } else {
-    alert("❌ Errado!");
+    msg = "❌ Errado!\n\nResposta correta: " + q.answer + "\n\n" + q.explanation;
   }
+
+  alert(msg);
 
   document.getElementById("score").innerText = score;
 
-  setTimeout(nextQuestion, 600);
+  setTimeout(nextQuestion, 700);
 }
 
 function nextQuestion() {
   current++;
 
   if (current >= questions.length) {
-    alert("Fim do simulado! Pontuação: " + score);
+    alert(
+      "Fim do simulado!\n\nVocê acertou " +
+      score +
+      " de " +
+      questions.length
+    );
+
     current = 0;
     score = 0;
   }
