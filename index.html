@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>PasseAI Concursos</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+🧠 PasseAI Concursos
+</header>
+
+<div class="container">
+
+  <h2>Simulado INSS (CEBRASPE)</h2>
+
+  <div id="questionBox" class="card"></div>
+
+  <div class="buttons">
+    <button onclick="answer('C')">Certo</button>
+    <button onclick="answer('E')">Errado</button>
+  </div>
+
+  <p>Acertos: <span id="score">0</span></p>
+
+  <button onclick="nextQuestion()">Próxima questão</button>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
