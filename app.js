@@ -1,6 +1,6 @@
 let score = 0;
 let current = 0;
-let answered = false;
+let canAnswer = true;
 
 const questions = [
   {
@@ -24,14 +24,15 @@ function loadQuestion() {
     <p>${q.text}</p>
   `;
 
-  answered = false;
+  canAnswer = true;
 }
 
 function answer(userAnswer) {
-  if (answered) return;
+  if (!canAnswer) return; // 🔒 bloqueia spam de clique
+
+  canAnswer = false;
 
   const q = questions[current];
-  answered = true;
 
   if (userAnswer === q.answer) {
     score++;
@@ -42,7 +43,7 @@ function answer(userAnswer) {
 
   document.getElementById("score").innerText = score;
 
-  setTimeout(nextQuestion, 800);
+  setTimeout(nextQuestion, 600);
 }
 
 function nextQuestion() {
